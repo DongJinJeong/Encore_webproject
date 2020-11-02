@@ -1,7 +1,6 @@
-INDEX VERSION 1.4+/Users/jeongdongjin/Documents/encore_webProject/Vue/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-1025368713.index
-3777648438.index
-789151250.index
-2100837371.index
-89933423.index
-195216321.index
+INDEX VERSION 1.4+C:\lsh\Encore_webProject\Vue\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3657209284.index
+2844595362.index
+3367055205.index
+383019078.index
+2967954701.index
