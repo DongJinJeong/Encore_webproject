@@ -1,6 +1,2 @@
 INDEX VERSION 1.4+/Users/jeongdongjin/Documents/1. Encore_PlayData/1. web/Encore_webProject/SpringBoot/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-1892661539.index
-2492788494.index
-488447671.index
-950473570.index
-1593368990.index
+1664896355.index
