@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>가게등록</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <style>
+            * {margin: 0; padding: 0; box-sizing: border-box;}
+            #wrap, #wrap>div {width: 100%;}
+            #header {height: 63px;}
+            .container {height: 100%; margin: auto;}
+            html, body {width: 100%; height: 100%;}
+            html {font-size: 10px;}
+            body {font-family: "맑은 고딕", sans-serif; font-size: 1.4rem;}
+            p {line-height: 1.5;}
+            ul {list-style: none;}
+            a {color: #000; text-decoration: none;}
+            h2 {font-size: 50px;}
+
+            /* ********** header :: Start ********** */
+            #header {border-bottom: 1px solid #cccccc;}
+            #header .container {position: relative;}
+            #header h1 {
+                width: 169px;
+                height: 27px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            /* Left Menu */
+            #header .left-menu {
+                width: 300px;
+                height: 63px;
+                float: left;
+                text-align: center;
+            }
+            #header .left-menu a {
+                display: inline-block;
+                height: 100%;
+                margin: 0 5px;
+                font: 700 1.3rem/63px 'Nanum Gothic', sans-serif;
+            }
+            #header .left-menu a:hover {color: #3f10fa;}
+
+            /* Right Menu */
+            #header .right-menu {
+                width: 300px;
+                height: 63px;
+                float: right;
+                text-align: center;
+            }
+            #header .right-menu  a {
+                display: inline-block;
+                height: 100%;
+                margin: 0 5px;
+                font: 700 1.3rem/63px 'Nanum Gothic', sans-serif;
+            }
+            #header .right-menu a:hover {color: #3f10fa;}
+
+            /* ********** store_register :: Start ********** */
+            .mid {
+               height: auto;
+               text-align: center;
+            }
+            .registerstore {
+                position: relative;
+                width: 320px;
+                margin: 0 auto;
+            }
+            .registerstore .box {
+                margin: 35px 0 0;
+                border: 2px solid #ddd;
+                border-radius: 3px;
+                background-color: #fff;
+                box-sizing: border-box;
+            }
+            .registerstore .inp_text {
+                position: relative;
+                width: 100%;
+                margin: 0;
+                padding: 18px 19px 19px;
+                box-sizing: border-box;
+            }
+            .registerstore .inp_text+.inp_text {border-top: 1px solid #ddd;}
+            .inp_text input {
+                display: block;
+                width: 100%;
+                height: 100%;
+                font-size: 13px;
+                color: #000;
+                border: none;
+                outline: 0;
+                -webkit-appearance: none;
+                background-color: transparent;
+            }
+            .btn_register {
+                margin: 20px 0 0;
+                width: 100%;
+                height: 48px;
+                border-radius: 3px;
+                font-size: 16px;
+                color: #fff;
+                background-color: #000;
+            }
+
+            /* ********** footer :: Start ********** */
+            #footer {height: 200px; text-align: center;}
+            #footer #f-top {height: 320px;}
+            #footer #f-bottom {height: 200px;}
+            #f-bottom {background-color: #363636; color: #fff;}
+            #f-bottom .container {padding: 21px 0; color: #fff;}
+            /* f-menu */
+            #f-bottom .f-menu {
+                width: 100%;
+                height: 42px;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            #f-bottom .f-menu li {
+                display: inline-block;
+                height: 100%;
+                margin: 0 10px;
+            }
+            #f-bottom .f-menu li a {color: #fff; font: 700 1.4rem/42px 'Nanum Gothic', sans-serif;}
+            #f-bottom .f-menu li a:hover {color: #ffcc00;}
+            /* adress */
+            #f-bottom address {
+                width: 100%;
+                height: 42px;
+                line-height: 1.5;
+                font-style: normal;
+                font-size: 1.3rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='app'>
+            <div id="wrap">
+                <!--********** header :: Start **********-->
+                <div id="header">
+                    <div class="container">
+                    <h1><a href="main.html">Encore Plate</a></h1>
+                    <!-- Left Menu -->
+                    <div class="left-menu">
+                        <a href="allStore.html">모든 맛집</a>
+                        <a href="store_register.html">가게등록</a>
+                        <a href="myStore.html">등록한 가게</a>
+                    </div>
+                    <!-- Right Menu -->
+                    <div class="right-menu">
+                        <a href="myBestStore.html">내 맛집</a></li>
+                        <a @click="logout">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!--********** main :: Start **********-->
+            <div class="mid">
+                <h1>가게등록</h1>
+                <div class="registerstore">
+                    <form action="#" method="POST" @submit.prevent="registerStore">
+                    <div class="box">
+                        <div class="inp_text" enctype="multipart/form-data">
+                            <label class="screen_out">가게 이미지</label>	
+                            <input type="file" name="store_img" id="store_img" size="30" v-model="cstore_img" />
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">가게명</label>
+                            <input type="text" name="store_name" id="store_name" size="30" v-model="cstore_name" />
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">주소</label>
+                            <input type="text" name="store_address" id="store_address" size="30" v-model="cstore_address" />
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">전화번호</label>
+                            <input type="text" name="store_phone" id="store_phone" size="30" v-model="cstore_phone" />
+                        </div>
+                        <div class="inp_text">
+                            <label>음식 종류</label>
+                            <select name="category" id="category" v-model="ccategory">
+                                <option value="한식">한식</option>
+                                <option value="분식">분식</option>
+                                <option value="중식">중식</option>
+                                <option value="양식">양식</option>
+                                <option value="일식">일식</option>
+                                <option value="카페">카페</option>
+                                <option value="만두">만두</option>
+                                <option value="족발">족발</option>
+                                <option value="국밥">국밥</option>
+                                <option value="고기">고기</option>
+                            </select>
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">주차 가능</label>
+                            <select name="parking" id="parking" v-model="cparking">
+                                <option value="주차 공간 충분">주차 공간 충분</option>
+                                <option value="주차 공간 협소">주차 공간 협소</option>
+                                <option value="무료 주차 가능">무료 주차 가능</option>
+                                <option value="주차 공간 없음">주차 공간 없음</option>
+                            </select>
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">오픈시간</label>
+                            <input type="time" name="opentime" id="opentime" size="30" v-model="copentime" />
+                        </div>
+                        <div class="inp_text">
+                            <label class="screen_out">마감시간</label>
+                            <input type="time" name="closetime" id="closetime" size="30" v-model="cclosetime" />
+                        </div>
+                        <div class="inp_text">
+                            <label>휴일</label>
+                            <select name="dayoff" id="dayoff" v-model="cdayoff">
+                                <option value="월요일">월요일</option>
+                                <option value="화요일">화요일</option>
+                                <option value="수요일">수요일</option>
+                                <option value="목요일">목요일</option>
+                                <option value="금요일">금요일</option>
+                                <option value="토요일">토요일</option>
+                                <option value="일요일">일요일</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn_register">가게등록</button>
+                </div>
+            </div>
+            
+            <!--********** footer :: Start **********-->
+            <div id="footer">
+                <div id="f-bottom">
+                    <div class="container">
+                        <!-- f-menu -->
+                        <div class="f-menu">
+                            <ul>
+                                <li><a href="#">이용약관</a></li>
+                                <li><a href="#">개인정보처리방침</a></li>
+                                <li><a href="#">이메일 무단 수집거부</a></li>
+                            </ul>
+                        </div>
+                        <p>엔코아 플레이트 | 대표 : 엔코아 | 사업자등록번호 : 000-00-00000</p><br>
+                        <p>주소 : 서울특별시 서초구 강남대로99길 53, 6층 (잠원동, 삼우빌딩)</p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function getToken() {
+	            return localStorage.getItem('Token');
+	        }
+            const token = getToken();
+            
+			var app = new Vue({
+				el:'#app',
+				data(){
+					return{
+						loading:true,
+						errored:false,
+						user: [],
+						cstore_img:'',
+						cstore_name:'',
+						cstore_address:'',
+						cstore_phone:'',
+						ccategory:'',
+						cparking:'',
+						copentime:'',
+						cclosetime:'',
+						cdayoff:''
+					} // return
+				}, // data
+				mounted() {
+	                axios
+	                    .get('http://localhost:7771/api/user/'+token)
+	                    .then(response => (this.user = response.data))
+	            },
+	            methods:{
+	            	registerStore(){
+	            		if(this.cstore_img==""){alert("이미지를 넣어주세요"); return;}
+	            		if(this.cstore_name==""){alert("가게명을 입력주세요"); return;}
+	            		if(this.cstore_address==""){alert("주소를 입력하세요"); return;}
+	            		if(this.cstore_phone==""){alert("전화번호를 입력하세요"); return;}
+	            		if(this.ccategory==""){alert("종류를 선택하세요"); return;}
+	            		if(this.cparking==""){alert("주차를 선택하세요"); return;}
+	            		if(this.copentime==""){alert("오픈시간을 입력하세요"); return;}
+	            		if(this.cclosetime==""){alert("마감시간을 입력하세요"); return;}
+	            		if(this.cdayoff==""){alert("휴일을 선택하세요"); return;}
+	            		
+	            		axios
+		            		.post('http://127.0.0.1:7771/api/registerStore',{
+								id: token,
+		            			store_img:this.cstore_img,
+		            			store_name:this.cstore_name,
+			           			store_address:this.cstore_address,
+			           			store_phone:this.cstore_phone,
+			           			category:this.ccategory,
+			           			parking:this.cparking,
+			           			opentime:this.copentime,
+			           			closetime:this.cclosetime,
+			           			dayoff:this.cdayoff
+		           		 	})
+	            			.then(function(response){
+	            				alert('가게가 등록되었습니다.');
+	            				location.href="./myStore.html";
+	            			})
+	            	}, // registerStore
+	            	logout(){
+	            		localStorage.removeItem('Token', token);
+	            		location.href="./login.html";
+	            	}
+	            } // methods
+			}); // Vue
+        </script>
+    </body>
+</html>
