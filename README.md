@@ -2,7 +2,7 @@
  - Vue.js, Spring Boot을 활용한 맛집 리스트 웹 프로젝트
 
 ## 기술 Spec
-<img src="https://user-images.githubusercontent.com/55942011/100713232-515e3800-33f7-11eb-87ab-ea140f1a22fe.png">
+<img src="https://user-images.githubusercontent.com/55942011/100713516-c3cf1800-33f7-11eb-94db-d1b48a42ff94.png">
 
 ## SRS 문서
 <img src="">
