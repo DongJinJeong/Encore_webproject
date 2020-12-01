@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StoreMapper">
+
+	<insert id="registerStore" parameterType="store">
+		INSERT INTO store
+		(store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, id)
+		VALUES (#{store_id}, #{store_img}, #{store_address}, #{store_phone}, #{category}, #{parking}, #{opentime}, #{closetime}, #{dayoff}, #{store_name}, #{id})
+	</insert>
+	
+	<update id="updateStore" parameterType="store">
+		UPDATE store
+		SET
+		store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}
+		WHERE store_id=#{store_id}
+	</update>
+	
+	<delete id="deleteStore" parameterType="int">
+		DELETE FROM store
+		WHERE store_id=#{value}
+	</delete>
+	
+ 	<select id="findAllMyStores" parameterType="String" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM store
+		WHERE id=#{value}
+	</select>
+	
+	<select id="findAllStores" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM store
+	</select>
+	
+	<select id="findStoreBycategory" parameterType="int" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM store
+		WHERE category=#{category}
+	</select> 
+	
+	<select id="findStoreByName" parameterType="string" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM store
+		WHERE store_name like concat('%',#{store_name},'%')
+	</select>
+	
+	<select id="detailStoreById" parameterType="int" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM store
+		WHERE store_id=#{value}
+	</select>
+	
+	<insert id="insertStore" parameterType="store">
+		INSERT INTO mybest(store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, id, score_avg)
+		(SELECT store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, #{id}, score_avg FROM store WHERE store_id=#{store_id});
+	</insert>
+   
+   <select id="myBestStores" parameterType="String" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		FROM mybest
+		WHERE id=#{value}
+	</select>
+	
+	<delete id="deletebestStore" parameterType="int">
+		DELETE FROM mybest
+		WHERE store_id=#{value}
+	</delete>
+   
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

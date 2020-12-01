@@ -6,6 +6,7 @@ import org.apache.ibatis.type.Alias;
 public class StoreDTO {
 	private int store_id;
 	private String store_img;
+	private String store_name;
 	private String store_address;
 	private String store_phone;
 	private String category;
@@ -13,7 +14,6 @@ public class StoreDTO {
 	private String opentime;
 	private String closetime;
 	private String dayoff;
-	private String store_name;
 	private String id;
 	private double score_avg;
 	
@@ -21,12 +21,13 @@ public class StoreDTO {
 		
 	}
 
-	public StoreDTO(int store_id, String store_img, String store_address, String store_phone, String category,
-			String parking, String opentime, String closetime, String dayoff, String store_name, String id,
+	public StoreDTO(int store_id, String store_img, String store_name, String store_address, String store_phone, String category,
+			String parking, String opentime, String closetime, String dayoff, String id,
 			double score_avg) {
 		super();
 		this.store_id = store_id;
 		this.store_img = store_img;
+		this.store_name = store_name;
 		this.store_address = store_address;
 		this.store_phone = store_phone;
 		this.category = category;
@@ -34,7 +35,6 @@ public class StoreDTO {
 		this.opentime = opentime;
 		this.closetime = closetime;
 		this.dayoff = dayoff;
-		this.store_name = store_name;
 		this.id = id;
 		this.score_avg = score_avg;
 	}
@@ -61,6 +61,14 @@ public class StoreDTO {
 
 	public void setStore_img(String store_img) {
 		this.store_img = store_img;
+	}
+	
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
 	}
 
 	public String getStore_address() {
@@ -118,14 +126,6 @@ public class StoreDTO {
 	public void setDayoff(String dayoff) {
 		this.dayoff = dayoff;
 	}
-	
-	public String getStore_name() {
-		return store_name;
-	}
-
-	public void setStore_name(String store_name) {
-		this.store_name = store_name;
-	}
 
 	public String getId() {
 		return id;
@@ -134,13 +134,12 @@ public class StoreDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "StoreDto [store_id=" + store_id + ", store_img=" + store_img + ", store_address=" + store_address
-				+ ", store_phone=" + store_phone + ", category=" + category + ", parking=" + parking + ", opentime="
-				+ opentime + ", closetime=" + closetime + ", dayoff=" + dayoff + ", store_name=" + store_name + ", id="
-				+ id + ", score_avg=" + score_avg + "]";
+		return "StoreDTO [store_id=" + store_id + ", store_img=" + store_img + ", store_name=" + store_name
+				+ ", store_address=" + store_address + ", store_phone=" + store_phone + ", category=" + category
+				+ ", parking=" + parking + ", opentime=" + opentime + ", closetime=" + closetime + ", dayoff=" + dayoff
+				+ ", id=" + id + ", score_avg=" + score_avg + "]";
 	}
 }

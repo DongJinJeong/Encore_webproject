@@ -9,6 +9,7 @@
 
 	<mappers>
 		<mapper resource="sql/user-mapping.xml"/>
+		<mapper resource="sql/store-mapping.xml"/>
 	</mappers>
 </configuration>
 
