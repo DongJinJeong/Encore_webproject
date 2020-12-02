@@ -6,6 +6,7 @@
         <title>가게등록</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <style>
             * {margin: 0; padding: 0; box-sizing: border-box;}
             #wrap, #wrap>div {width: 100%;}
@@ -62,25 +63,32 @@
             }
             #header .right-menu a:hover {color: #3f10fa;}
 
-            /* ********** store_register :: Start ********** */
+            /* ********** store_detail :: Start ********** */
             .mid {height: auto;}
-            .list {font-family: "Nanum Gothic", sans-serif; font-weight: 600; width: 700px; margin: 0 auto;}
-            .list img{width: 230px; height: 230px; object-fit: cover;}
-            .list h1, h2, h5 {margin: 9px; align-content: center;}
-            .list .restaurant {margin-top: 30px; width: 700px; height: 300px;}
-            .list .info {margin-right: 20px; width: 60%; float: right; margin-left: 10px;}
-            .list .name {font-size: 30px;}
-            .list .score {margin-left: 10px;font-size: 28px; color: olive;}
-            .list .location {margin-top: 8px;margin-bottom: 8px; font-size: 18px; color: #8c8c8c;}
-            .list .dibs_btn {margin-left: 20px; margin-right: 4px; float: right;}
-            .list .dibs_text {font-size: 12px; margin-top: 5px; margin: 0; float: right;}
-            .list .review_id {font-size: 20px; color: #000000; font-weight: 800;}
-            .list .review {font-size: 15px;}
-            .list .moreInfo {text-align: right;}
-            .header_bottom {text-align: center; background: url(./image/pizza4.jpeg); padding: 180px; height: 400px;}
+            .container1 {
+                width: 1170px;
+                margin: auto;
+                padding: 0 15px;
+            }
+			.reviewWritingPage__Row {text-align: center; margin-bottom: 60px; font-size: large;}
+            .reviewEditor__Editor {border: 2px solid black; padding: 5px;}
+            .score_area{margin: 10px 10px; float: right;}
+            .ReviewWritingPage__Buttons {float: right; margin-right: 10px;}
+            .review_upload_btn {
+                background-color: while;
+                border-radius: 15px;
+                cursor: pointer;
+                width: 150px;
+                height: 23px;
+                font-size: 15px;
+                font-weight: bold;
+                transition-duration: 0.4s;
+            }
+            .review_upload_btn:hover {background-color: #555555; color: white;}
+            #review {padding: 30px 200px;}
 
             /* ********** footer :: Start ********** */
-            #footer {height: 200px; text-align: center; bottom:0; width:100%;}
+            #footer {height: 200px; text-align: center; bottom: 0; width: 100%; position: fixed;}
             #footer #f-top {height: 320px;}
             #footer #f-bottom {height: 200px;}
             #f-bottom {background-color: #363636; color: #fff;}
@@ -133,32 +141,29 @@
             
             <!--********** main :: Start **********-->
             <div class="mid">
-                <div class="header_bottom">
-                    <h1>솔직한 리뷰, 믿을 수 없는 평점!</h1>
-                    <h2>망고 플레이트</h2>
-                </div>
-                <div class="list">
-                    <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">내가 등록한 가게</h2>
-                    <div class="restaurant" v-for="s in info">
-                        <div style="width: 35%; float: left;">
-                            <a :href="projectHref(s.store_id)"><img src="s.store_img"></a><br>
-                        </div>
-                        <div class="info">
-                            <div>
-                                <a class="name" v-html="s.store_name"></a><span class="score"> {{s.score_avg}}</span>
-                                <button class="dibs_btn" @click="deleteStore(s.store_id)">삭제</button>
-                                <button class="dibs_btn" onclick="location.href='store_update.html'"><a :href="projectHref(s.store_id)">수정</a></button>
-                                <p class="location">음식 종류 : {{s.category}}</p>
-                                <p class="location">주소 : {{s.store_address}}</p>
-                                <p class="location">전화번호 : {{s.store_phone}}</p>
-                                <p class="location">주차 : {{s.parking}}</p>
-                                <p class="location">영업시간 : {{s.opentime}} ~ {{s.closetime}}</p>
-                                <p class="location">휴일 : {{s.dayoff}}</p>
-                            </div>
-                            <span class="review"></span>
-                            <br><hr>
-                        </div>
+                <div id="review" class="container1">
+                    <div class="reviewWritingPage__Row" v-for="s in info">
+                        <strong class="RestaurantSubMessage__RestaurantName">"{{s.store_name}}"에 대한 솔직한 리뷰와 점수를 입력해주세요</strong>
                     </div>
+                    <form action="#" method="POST" @submit.prevent="addReview">
+                        <textarea v-model="ccontent" class="reviewEditor__Editor" maxlength="10000" cols="103" rows="30" style="overflow: hidden; overflow-wrap: break-word;" placeholder="주문하신 메뉴는 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
+                        <div class="score_area">
+                            <input type="radio" id="5" name="score" value="5" v-model="cscore">
+                            <label for="5">5</label>
+                            <input type="radio" id="4" name="score" value="4" v-model="cscore">
+                            <label for="4">4</label>
+                            <input type="radio" id="3" name="score" value="3" v-model="cscore">
+                            <label for="3">3</label>
+                            <input type="radio" id="2" name="score" value="2" v-model="cscore">
+                            <label for="2">2</label>
+                            <input type="radio" id=1 name="score" value="1" v-model="cscore">
+                            <label for="1">1</label>
+                        </div>  
+                        <p style="clear: both; visibility: hidden; height: 0;">한줄 띄기~~~</p>                   
+                        <div class="ReviewWritingPage__Buttons">
+                            <a @click="score_avg"><button type='submit' class="review_upload_btn">리뷰 올리기</button></a>
+                        </div>
+                    </form>
                 </div>
             </div>
             
@@ -183,55 +188,68 @@
         
         <script>
             function getToken() {
-               return localStorage.getItem('Token');
-            }
-            const token = getToken();
+				return localStorage.getItem('Token');
+			}
+			const token = getToken();
+			
+			$.urlParam = function(name){
+				var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			    return results[1] || 0;
+			}
+			var sti = $.urlParam('store_id')
+			
+			var app = new Vue({
+                el: '#app',
+                data() {
+			        return {
+			            info: [],
+			            loading:true,
+			            errored:false,
+			            ccontent:'',
+			            cscore:'',
+			            cid:token,
+			            cstore_id:$.urlParam('store_id')
+			        }
+			    },
+			    mounted(){
+			             axios
+			                .get("http://localhost:7771/api/detailStoreById/"+sti)
+			                .then(response=>(this.info = response.data))
+			                .catch(error=>{
+			                    console.log(error);
+			                    this.errored = true
+			                })
+			                .finally(()=>this.loading = false)
+			         },
+			    methods:{
+			    	logout(){
+	            		localStorage.removeItem('Token', token);
+	            		location.href="./main.html";
+	            	},
+                    addReview(){
+                        if(this.ccontent==''){alert("내용을 입력하세요");return;}
+                        if(this.cscore==''){alert("평점을 골라주세요");return;}
 
-            new Vue({
-                el: "#app",           
-                data(){
-                    return {
-                        info:[ ],
-                        loading:true,
-                        errored:false
-                    }
-                },
-                mounted(){
-                    axios
-                        .get("http://127.0.0.1:7771/api/findAllMyStores/"+token)
-                        .then(response=>(this.info = response.data))
-                        .catch(error=>{
-                            console.log(error);
-                            this.errored = true
-                        })
-                        .finally(()=>this.loading = false)
-                },
-                methods: {
-                    updateStore(list_num, event) {
                         axios
-                            .get('http://localhost:7771/api/updateStore', {
-                                store_id: store_id,
-                                listDate: event.target.value
+                            .post("http://localhost:7771/api/addReview",{
+                                content:this.ccontent,
+                                id:this.cid,
+                                score:this.cscore,
+                                store_id:this.cstore_id
                             })
-                            .then(response => (location.reload(true)))
+                            .then(function(response){
+                                alert('리뷰가 등록 되었습니다');
+                                location.href="./store_detail.html?store_id="+sti;
+                            }) 
                     },
-                    deleteStore(store_id) {
+                    score_avg(){
                         axios
-                            .delete('http://localhost:7771/api/deleteStore/'+store_id)
-                            .then(response => {
-                                alert('삭제되었습니다.');
-                                location.reload(true)
+                            .post("http://localhost:7771/api/findScore_avgByStoreId/"+sti,{
+                                store_id: store_id
                             })
-                    },
-                    logout(){
-                        localStorage.removeItem('Token', token);
-                        location.href="./main.html";
-                    },
-                    projectHref(index){
-                        return "store_detail.html?store_id=" + index.toString();
                     }
-                }
-            })
+			    }
+			})
         </script>
     </body>
 </html>

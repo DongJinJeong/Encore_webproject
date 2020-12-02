@@ -5,15 +5,13 @@
 <mapper namespace="StoreMapper">
 
 	<insert id="registerStore" parameterType="store">
-		INSERT INTO store
-		(store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, id)
-		VALUES (#{store_id}, #{store_img}, #{store_address}, #{store_phone}, #{category}, #{parking}, #{opentime}, #{closetime}, #{dayoff}, #{store_name}, #{id})
+		INSERT INTO store (store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, id, menu1, price1, menu2, price2, menu3, price3)
+		VALUES (#{store_id}, #{store_img}, #{store_address}, #{store_phone}, #{category}, #{parking}, #{opentime}, #{closetime}, #{dayoff}, #{store_name}, #{id}, #{menu1}, #{price1}, #{menu2}, #{price2}, #{menu3}, #{price3})
 	</insert>
 	
 	<update id="updateStore" parameterType="store">
 		UPDATE store
-		SET
-		store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}
+		SET store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}
 		WHERE store_id=#{store_id}
 	</update>
 	
@@ -51,7 +49,7 @@
 	
 	<select id="detailStoreById" parameterType="int" resultType="store">
 		SELECT
-		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg, menu1, price1, menu2, price2, menu3, price3
 		FROM store
 		WHERE store_id=#{value}
 	</select>

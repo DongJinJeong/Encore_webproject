@@ -17,13 +17,6 @@
 		WHERE id=#{VALUE}
 	</select>
 	
-	<update id="updateUser" parameterType="user">
-		UPDATE
-		user
-		SET password=#{password}, name=#{name}, email=#{email}, phone=#{phone}
-		WHERE id=#{id}
-	</update>
-	
 	<select id="login" resultType="user" parameterType="user">
 		SELECT
 		id, password, name, email, phone

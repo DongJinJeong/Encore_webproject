@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.encore.food.domain.StoreDTO;
 
 @Repository
-public class StoreDaoImpl implements StoreDao {
+public class StoreDAOImpl implements StoreDAO {
 	
 	private String NS = "StoreMapper.";
 

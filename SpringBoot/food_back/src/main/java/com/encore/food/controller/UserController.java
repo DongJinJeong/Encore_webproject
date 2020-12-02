@@ -35,16 +35,6 @@ public class UserController {
 		return new ResponseEntity(userService.idCheck(id), HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateUser/{id}/{password}")
-	public ResponseEntity updateUser(@PathVariable String id,@PathVariable String password) throws Exception{
-		UserDTO userDTO = new UserDTO();
-		userDTO.setId(id);
-		userDTO.setPassword(password);
-		boolean result = userService.updateUser(userDTO);
-		if(!result) return new ResponseEntity(HttpStatus.NO_CONTENT);
-		else return new ResponseEntity(HttpStatus.OK);
-	}
-	
 	@PostMapping("/login")
 	public ResponseEntity login(@RequestBody UserDTO userDTO) throws Exception{
 		UserDTO loginUser = userService.login(userDTO);

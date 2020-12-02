@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.encore.food.domain.StoreDTO;
 
-public interface StoreDao {
+public interface StoreDAO {
 	List<StoreDTO> findAllMyStores(String id) throws Exception;
 	List<StoreDTO> findAllStores() throws Exception;
 	List<StoreDTO> findStoreByName(String store_name) throws Exception;

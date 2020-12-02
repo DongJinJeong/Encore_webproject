@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>가게등록</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <style>
+            * {margin: 0; padding: 0; box-sizing: border-box;}
+            #wrap, #wrap>div {width: 100%;}
+            .container {height: 100%; margin: auto;}
+            html, body {width: 100%; height: 100%;}
+            html {font-size: 10px;}
+            body {font-family: "맑은 고딕", sans-serif; font-size: 1.4rem;}
+            p {line-height: 1.5;}
+            ul {list-style: none;}
+            a {color: #000; text-decoration: none;}
+            h2 {font-size: 50px;}
+
+            /* ********** header :: Start ********** */
+            #header {border-bottom: 1px solid #cccccc; height: 63px;}
+            #header .container {position: relative;}
+            #header h1 {
+                width: 169px;
+                height: 27px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -moz-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            /* Left Menu */
+            #header .left-menu {
+                width: 300px;
+                height: 63px;
+                float: left;
+                text-align: center;
+            }
+            #header .left-menu a {
+                display: inline-block;
+                height: 100%;
+                margin: 0 5px;
+                font: 700 1.3rem/63px 'Nanum Gothic', sans-serif;
+            }
+            #header .left-menu a:hover {color: #3f10fa;}
+
+            /* Right Menu */
+            #header .right-menu {
+                width: 300px;
+                height: 63px;
+                float: right;
+                text-align: center;
+            }
+            #header .right-menu  a {
+                display: inline-block;
+                height: 100%;
+                margin: 0 5px;
+                font: 700 1.3rem/63px 'Nanum Gothic', sans-serif;
+            }
+            #header .right-menu a:hover {color: #3f10fa;}
+
+            /* ********** store_detail :: Start ********** */
+            .mid {height: auto; display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 10px; grid-auto-rows: minmax(300px, auto); padding: 30px 200px;}
+			.mid > div {border-radius: 5px;	padding: 1em;}
+			.img1 {grid-column: 1; grid-row: 1;}
+			.img2 {grid-column: 2; grid-row: 1;}
+			.img3 {grid-column: 3; grid-row: 1}
+			.store_info {grid-column: 1 / 3; grid-row: 2;}
+			.map {grid-column: 3; grid-row: 2;}
+			.chart {grid-column: 1 / 3; grid-row: 3;}
+			.review {grid-column: 1 / 3; grid-row: 4;}
+
+            /* ********** footer :: Start ********** */
+            #footer {height: 200px; text-align: center; bottom:0; width:100%;}
+            #footer #f-top {height: 320px;}
+            #footer #f-bottom {height: 200px;}
+            #f-bottom {background-color: #363636; color: #fff;}
+            #f-bottom .container {padding: 21px 0; color: #fff;}
+            /* f-menu */
+            #f-bottom .f-menu {
+                width: 100%;
+                height: 42px;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            #f-bottom .f-menu li {
+                display: inline-block;
+                height: 100%;
+                margin: 0 10px;
+            }
+            #f-bottom .f-menu li a {color: #fff; font: 700 1.4rem/42px 'Nanum Gothic', sans-serif;}
+            #f-bottom .f-menu li a:hover {color: #ffcc00;}
+            /* adress */
+            #f-bottom address {
+                width: 100%;
+                height: 42px;
+                line-height: 1.5;
+                font-style: normal;
+                font-size: 1.3rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id='app'>
+            <div id="wrap">
+                <!--********** header :: Start **********-->
+                <div id="header">
+                    <div class="container">
+                    <h1><a href="main.html">Encore Plate</a></h1>
+                    <!-- Left Menu -->
+                    <div class="left-menu">
+                        <a href="allStore.html">모든 맛집</a>
+                        <a href="store_register.html">가게등록</a>
+                        <a href="myStore.html">등록한 가게</a>
+                    </div>
+                    <!-- Right Menu -->
+                    <div class="right-menu">
+                        <a href="myBestStore.html">내 맛집</a></li>
+                        <a @click="logout">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+            
+			<!--********** main :: Start **********-->
+			<div class="container1">
+				<div class="mid">
+					<div class="img1">
+						<img src="./image/ti.jpg" style="width: 100%; height: 100%;">
+					</div>
+					<div class="img2">
+						<img src="./image/t.jpg" style="width: 100%; height: 100%;">
+					</div>
+					<div class="img3">
+						<img src="./image/coffee.jpg" style="width: 100%; height: 100%;">
+					</div>
+					<!-- 가게 정보 -->
+					<div class="store_info" v-for="s in info">
+						<span style="width: 50%; font-size: 40px; float: left;">{{s.store_name}}</span><span style="font-size: 40px; color: olive;">{{s.score_avg}}</span>
+						<span id="review_button" style="width: 40px; height: 40px; float: right;">
+							<a :href="juso">
+								<img src="image/free-icon-edit-263062.png" width='30px' height='30px'>
+								<span class="review_writing_button_text" style="font-size: 7px"><strong>리뷰쓰기</strong></span>
+							</a>
+						</span>
+						<hr>
+						<table style="height: 65%;">
+							<tbody>
+								<tr>
+									<th>오픈 시간</th>
+									<td>{{s.opentime}}</td>
+								</tr>
+								<tr>
+									<th>주소</th>
+									<td>{{s.store_address}}</td>
+								</tr>
+								<tr>
+									<th>전화번호</th>
+									<td>{{s.store_phone}}</td>
+								</tr>
+								<tr>
+									<th>음식종류</th>
+									<td>{{s.category}}</td>
+								</tr>
+								<tr>
+									<th>주차</th>
+									<td>{{s.parking}}</td>
+								</tr>
+								<table border=1 style="width: 100%;">
+									<thead>
+										<th>메뉴</th><th>가격</th>
+									</thead>
+									<tbody style="text-align: center;">
+										<tr>
+											<td>{{s.menu1}}</td>
+											<td>{{s.price1}}</td>
+										</tr>
+										<tr>
+											<td>{{s.menu2}}</td>
+											<td>{{s.price2}}</td>
+										</tr>
+										<tr>
+											<td>{{s.menu3}}</td>
+											<td>{{s.price3}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</tbody>
+						</table>
+						<hr>
+					</div>
+					<!-- 지도 -->
+					<div class="map">
+						지도
+					</div>
+					<!-- 차트 -->
+					<div class="chart">
+						<div class="review_chart">
+							<canvas id="myChart"></canvas>
+						</div>
+						<hr>
+					</div>
+					<!-- 리뷰 -->
+					<div class="review">
+						<h2 style="font-size: 30px;">리뷰</h2>
+						<table border=1 style="width: 100%; text-align: center;">
+							<thead>
+								<th>작성자</th><th>내용</th><th>평점</th><th v-if="rBc!=null">삭제</th>
+							</thead>
+							<tbody>
+								<tr v-for="r in rlist">
+									<td>{{r.id}}</td>
+									<td>{{r.content}}</td>
+									<td>{{r.score}}</td>
+									<td v-show="r.id==token"><button @click="deleteReview(r.review_id)" style="width: 100%;">삭제</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+            
+            <!--********** footer :: Start **********-->
+            <div id="footer">
+                <div id="f-bottom">
+                    <div class="container">
+                        <!-- f-menu -->
+                        <div class="f-menu">
+                            <ul>
+                                <li><a href="#">이용약관</a></li>
+                                <li><a href="#">개인정보처리방침</a></li>
+                                <li><a href="#">이메일 무단 수집거부</a></li>
+                            </ul>
+                        </div>
+                        <p>엔코아 플레이트 | 대표 : 엔코아 | 사업자등록번호 : 000-00-00000</p><br>
+                        <p>주소 : 서울특별시 서초구 강남대로99길 53, 6층 (잠원동, 삼우빌딩)</p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function getToken() {
+	            return localStorage.getItem('Token');
+	        }
+	        const token = getToken();
+	        
+			$.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+			}
+		
+	    	new Vue({
+	    		el:"#app",
+	    		data(){
+	    			return{
+	    				info:[],
+	    				rlist:[],
+	    				aa: 0,
+	                    juso:'new_review.html?store_id='+$.urlParam('store_id'),
+	    				loading:true,
+	    				errored:false,
+	    				rBc:[],
+	                    token
+	    			}
+	    		},
+	    		mounted(){
+	                axios
+		                .get("http://127.0.0.1:7771/api/detailStoreById/"+$.urlParam('store_id'))
+		                .then(response=>(this.info = response.data))
+		                .catch(error=>{
+		                    console.log(error);
+		                    this.errored = true
+		                })
+		                .finally(()=>this.loading = false)
+		                
+					axios
+						.get("http://127.0.0.1:7771/api/findReviewsByStoreId/"+$.urlParam('store_id'))
+						.then(response=>(this.rlist = response.data))
+						.catch(error=>{
+						    console.log(error);
+						    this.errored = true
+						})
+						.finally(()=>this.loading = false)
+						
+					axios
+						.get("http://127.0.0.1:7771/api/scoreByStoreId/"+$.urlParam('store_id'))
+						.then(response=>(this.aa = response.data))
+						.catch(error=>{
+						    console.log(error);
+						    this.errored = true
+						})
+						.finally(()=>this.loading = false)
+	            },
+	            methods:{
+	            	logout(){
+	            		localStorage.removeItem('Token', token);
+	            		location.href="./main.html";
+	            	},
+	            	deleteReview(review_id) {
+	                    axios
+	                        .delete('http://localhost:7771/api/deleteReview/'+review_id)
+	                        .then(response => {
+	                        		alert('삭제되었습니다.');
+	                        		location.reload(true)
+	                        })
+	                }
+	            }
+	    	})
+	    	/* 차트 */
+	    	var ctx = document.getElementById('myChart');
+         	var myChart = new Chart(ctx, {
+         		type: 'bar',
+         		data: {
+         			labels: ['5', '4', '3', '2', '1'], 
+         			datasets: [{
+         				label: '리뷰', 
+         				data: [
+         					1, 2, 3, 4, 2
+         				],
+         				backgroundColor: [ 
+         					'rgba(255, 99, 132, 0.2)', 
+         					'rgba(54, 162, 235, 0.2)', 
+         					'rgba(255, 206, 86, 0.2)', 
+         					'rgba(75, 192, 192, 0.2)', 
+         					'rgba(153, 102, 255, 0.2)'
+         				], 
+     					borderColor: [ 
+     						'rgba(255, 99, 132, 1)', 
+     						'rgba(54, 162, 235, 1)', 
+     						'rgba(255, 206, 86, 1)', 
+     						'rgba(75, 192, 192, 1)', 
+     						'rgba(153, 102, 255, 1)'
+     					],
+     						borderWidth: 1 
+         				}]
+         		}, 
+				options: { 
+					scales: { 
+						yAxes: [{ 
+							ticks: { 
+								beginAtZero: true 
+							}
+						}]
+					}
+				}
+         	}); 
+        </script>
+    </body>
+</html>

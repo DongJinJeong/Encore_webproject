@@ -78,6 +78,23 @@
             .list .review {font-size: 15px;}
             .list .moreInfo {text-align: right;}
             .header_bottom {text-align: center; background: url(./image/pizza4.jpeg); padding: 180px; height: 400px;}
+            .btn{
+                display: inline-block; width: 100px; height: 40px;
+                font: 700 1.4rem/42px 'Nanum Gothic', sans-serif;
+                text-align: center; border-radius: 21px;
+                border: 1px solid #000;
+                color: #2d2d2d;
+            }
+            .btn1{ color: #fff; border-color: #fff; }
+            .btn1:hover{ color: #2d2d2d; background-color: #fff; }
+            .btn2:hover{ color: #fff; background-color: #2d2d2d; }
+            .btn, .btn2{
+                -webkit-transition: all ease 0.4s;
+                -moz-transition: all ease 0.4s;
+                -o-transition: all ease 0.4s;
+                transition: all ease 0.4s;
+            }
+            .store_name {width: 500px; height: 40px; margin: 10px 0; border-radius: 20px; text-align: center; font-weight: 800}
 
             /* ********** footer :: Start ********** */
             #footer {height: 200px; text-align: center; bottom:0; width:100%;}
@@ -134,20 +151,34 @@
             <!--********** main :: Start **********-->
             <div class="mid">
                 <div class="header_bottom">
-                    <h1>솔직한 리뷰, 믿을 수 없는 평점!</h1>
-                    <h2>망고 플레이트</h2>
+                    <h2>믿고보는 맛집 리스트</h2>
+                    <p></p>
+                    <a class="btn btn2">#전체</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#한식</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#분식</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#중식</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#양식</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#일식</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#카페</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#만두</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#족발</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#국밥</a>
+                    <a @click="findStoreBycategory()" class="btn btn2">#고기</a>   
+                </div>
+                 
+                <div class="search" style="margin: 10px 20%; padding: 0 150px; text-align: center;">
+                    <input type="text" class="store_name" v-model='cstore_name' @keyup="searchname" @input="cstore_name=$event.target.value" placeholder="가게명을 입력하세요...">
                 </div>
                 <div class="list">
-                    <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">내가 등록한 가게</h2>
-                    <div class="restaurant" v-for="s in info">
+                    <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">맛집 목록</h2>
+                    <div class="restaurant" v-for="s in info" style="width: 700px; height: 300px;">
                         <div style="width: 35%; float: left;">
                             <a :href="projectHref(s.store_id)"><img src="s.store_img"></a><br>
                         </div>
-                        <div class="info">
+                        <div class="info" style="width: 60%; float: right; margin-left: 10px;">
                             <div>
-                                <a class="name" v-html="s.store_name"></a><span class="score"> {{s.score_avg}}</span>
-                                <button class="dibs_btn" @click="deleteStore(s.store_id)">삭제</button>
-                                <button class="dibs_btn" onclick="location.href='store_update.html'"><a :href="projectHref(s.store_id)">수정</a></button>
+                                <a class="name" v-html="s.store_name"></a><span class="score">{{s.score_avg}}</span>
+                                <button class="dibs_btn" @click="insertstore(s.store_id)">즐겨찾기</button>
                                 <p class="location">음식 종류 : {{s.category}}</p>
                                 <p class="location">주소 : {{s.store_address}}</p>
                                 <p class="location">전화번호 : {{s.store_phone}}</p>
@@ -156,6 +187,9 @@
                                 <p class="location">휴일 : {{s.dayoff}}</p>
                             </div>
                             <span class="review"></span>
+                            <p class="moreInfo">
+                                <a :href="projectHref(s.store_id)">{{s.store_name}} 더보기 -></a>
+                            </p>
                             <br><hr>
                         </div>
                     </div>
@@ -183,22 +217,23 @@
         
         <script>
             function getToken() {
-               return localStorage.getItem('Token');
+                return localStorage.getItem('Token');
             }
             const token = getToken();
-
             new Vue({
                 el: "#app",           
                 data(){
                     return {
                         info:[ ],
+                        cstore_name:'',
+                        token,
                         loading:true,
                         errored:false
                     }
                 },
                 mounted(){
                     axios
-                        .get("http://127.0.0.1:7771/api/findAllMyStores/"+token)
+                        .get("http://127.0.0.1:7771/api/findAllStores")
                         .then(response=>(this.info = response.data))
                         .catch(error=>{
                             console.log(error);
@@ -207,26 +242,35 @@
                         .finally(()=>this.loading = false)
                 },
                 methods: {
-                    updateStore(list_num, event) {
+                    searchname(){
                         axios
-                            .get('http://localhost:7771/api/updateStore', {
-                                store_id: store_id,
-                                listDate: event.target.value
+                            .get("http://127.0.0.1:7771/api/findStoreByName/"+this.cstore_name)
+                            .then(response=>(this.info = response.data))
+                            .catch(error=>{
+                                console.log(error);
+                                this.errored = true
                             })
-                            .then(response => (location.reload(true)))
-                    },
-                    deleteStore(store_id) {
+                            .finally(()=>this.loading = false)
+                    }, //searchname
+                    insertstore(store_id){
                         axios
-                            .delete('http://localhost:7771/api/deleteStore/'+store_id)
-                            .then(response => {
-                                alert('삭제되었습니다.');
-                                location.reload(true)
+                            .post("http://127.0.0.1:7771/api/insertStore",{
+                                id: token,
+                                store_id: store_id
                             })
+                            .then(response=>{this.stdt = response.data
+                                alert("내 맛집에 등록되었습니다.");
+                            })
+                            .catch(error=>{
+                                console.log(error);
+                                this.errored = true
+                            })
+                            .finally(()=>(this.loading = false))
                     },
                     logout(){
                         localStorage.removeItem('Token', token);
                         location.href="./main.html";
-                    },
+                    }, // logout
                     projectHref(index){
                         return "store_detail.html?store_id=" + index.toString();
                     }

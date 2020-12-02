@@ -27,13 +27,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean updateUser(UserDTO user) throws Exception {
-		int result = sqlSession.update(NS+"updateUser", user);
-		if(result > 0) return true;
-		return false;
-	}
-
-	@Override
 	public UserDTO login(UserDTO user) throws Exception {
 		return sqlSession.selectOne(NS+"login", user);
 	}

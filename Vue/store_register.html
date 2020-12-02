@@ -64,10 +64,7 @@
             #header .right-menu a:hover {color: #3f10fa;}
 
             /* ********** store_register :: Start ********** */
-            .mid {
-               height: auto;
-               text-align: center;
-            }
+            .mid {height: auto;}
             .registerstore {
                 position: relative;
                 width: 320px;
@@ -163,72 +160,85 @@
             
             <!--********** main :: Start **********-->
             <div class="mid">
-                <h1>가게등록</h1>
+                <h1 style="text-align: center;">가게등록</h1>
                 <div class="registerstore">
                     <form action="#" method="POST" @submit.prevent="registerStore">
-                    <div class="box">
-                        <div class="inp_text" enctype="multipart/form-data">
-                            <label class="screen_out">가게 이미지</label>	
-                            <input type="file" name="store_img" id="store_img" size="30" v-model="cstore_img" />
+                        <div class="box">
+                            <div class="inp_text" enctype="multipart/form-data">
+                                <label class="screen_out">가게 이미지</label>	
+                                <input type="file" name="store_img" id="store_img" size="30" v-model="cstore_img" />
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">가게명</label>
+                                <input type="text" name="store_name" id="store_name" size="30" v-model="cstore_name" />
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">주소</label>
+                                <input type="text" name="store_address" id="store_address" size="30" v-model="cstore_address" />
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">전화번호</label>
+                                <input type="text" name="store_phone" id="store_phone" size="30" v-model="cstore_phone" />
+                            </div>
+                            <div class="inp_text">
+                                <label>음식 종류</label>
+                                <select name="category" id="category" v-model="ccategory">
+                                    <option value="한식">한식</option>
+                                    <option value="분식">분식</option>
+                                    <option value="중식">중식</option>
+                                    <option value="양식">양식</option>
+                                    <option value="일식">일식</option>
+                                    <option value="카페">카페</option>
+                                    <option value="만두">만두</option>
+                                    <option value="족발">족발</option>
+                                    <option value="국밥">국밥</option>
+                                    <option value="고기">고기</option>
+                                </select>
+                            </div>
+                            <div class="inp_text">
+                                메뉴 : <input type="text" name="menu1" id="menu1" size="30" v-model="cmenu1" />
+                                가격 : <input type="text" name="price1" id="price1" size="30" v-model="cprice1" />
+                            </div>
+                            <div class="inp_text">
+                                메뉴 : <input type="text" name="menu2" id="menu2" size="30" v-model="cmenu2" />
+                                가격 : <input type="text" name="price2" id="price2" size="30" v-model="cprice2" />
+                            </div>
+                            <div class="inp_text">
+                                메뉴 : <input type="text" name="menu3" id="menu3" size="30" v-model="cmenu3" />
+                                가격 : <input type="text" name="price3" id="price3" size="30" v-model="cprice3" />
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">주차 가능</label>
+                                <select name="parking" id="parking" v-model="cparking">
+                                    <option value="주차 공간 충분">주차 공간 충분</option>
+                                    <option value="주차 공간 협소">주차 공간 협소</option>
+                                    <option value="무료 주차 가능">무료 주차 가능</option>
+                                    <option value="주차 공간 없음">주차 공간 없음</option>
+                                </select>
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">오픈시간</label>
+                                <input type="time" name="opentime" id="opentime" size="30" v-model="copentime" />
+                            </div>
+                            <div class="inp_text">
+                                <label class="screen_out">마감시간</label>
+                                <input type="time" name="closetime" id="closetime" size="30" v-model="cclosetime" />
+                            </div>
+                            <div class="inp_text">
+                                <label>휴일</label>
+                                <select name="dayoff" id="dayoff" v-model="cdayoff">
+                                    <option value="월요일">월요일</option>
+                                    <option value="화요일">화요일</option>
+                                    <option value="수요일">수요일</option>
+                                    <option value="목요일">목요일</option>
+                                    <option value="금요일">금요일</option>
+                                    <option value="토요일">토요일</option>
+                                    <option value="일요일">일요일</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="inp_text">
-                            <label class="screen_out">가게명</label>
-                            <input type="text" name="store_name" id="store_name" size="30" v-model="cstore_name" />
-                        </div>
-                        <div class="inp_text">
-                            <label class="screen_out">주소</label>
-                            <input type="text" name="store_address" id="store_address" size="30" v-model="cstore_address" />
-                        </div>
-                        <div class="inp_text">
-                            <label class="screen_out">전화번호</label>
-                            <input type="text" name="store_phone" id="store_phone" size="30" v-model="cstore_phone" />
-                        </div>
-                        <div class="inp_text">
-                            <label>음식 종류</label>
-                            <select name="category" id="category" v-model="ccategory">
-                                <option value="한식">한식</option>
-                                <option value="분식">분식</option>
-                                <option value="중식">중식</option>
-                                <option value="양식">양식</option>
-                                <option value="일식">일식</option>
-                                <option value="카페">카페</option>
-                                <option value="만두">만두</option>
-                                <option value="족발">족발</option>
-                                <option value="국밥">국밥</option>
-                                <option value="고기">고기</option>
-                            </select>
-                        </div>
-                        <div class="inp_text">
-                            <label class="screen_out">주차 가능</label>
-                            <select name="parking" id="parking" v-model="cparking">
-                                <option value="주차 공간 충분">주차 공간 충분</option>
-                                <option value="주차 공간 협소">주차 공간 협소</option>
-                                <option value="무료 주차 가능">무료 주차 가능</option>
-                                <option value="주차 공간 없음">주차 공간 없음</option>
-                            </select>
-                        </div>
-                        <div class="inp_text">
-                            <label class="screen_out">오픈시간</label>
-                            <input type="time" name="opentime" id="opentime" size="30" v-model="copentime" />
-                        </div>
-                        <div class="inp_text">
-                            <label class="screen_out">마감시간</label>
-                            <input type="time" name="closetime" id="closetime" size="30" v-model="cclosetime" />
-                        </div>
-                        <div class="inp_text">
-                            <label>휴일</label>
-                            <select name="dayoff" id="dayoff" v-model="cdayoff">
-                                <option value="월요일">월요일</option>
-                                <option value="화요일">화요일</option>
-                                <option value="수요일">수요일</option>
-                                <option value="목요일">목요일</option>
-                                <option value="금요일">금요일</option>
-                                <option value="토요일">토요일</option>
-                                <option value="일요일">일요일</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn_register">가게등록</button>
+                        <button type="submit" class="btn_register">가게등록</button>
+                    </form>
                 </div>
             </div>
             
@@ -268,7 +278,13 @@
 						cstore_name:'',
 						cstore_address:'',
 						cstore_phone:'',
-						ccategory:'',
+                        ccategory:'',
+                        cmenu1:'',
+                        cprice1:'',
+                        cmenu2:'',
+                        cprice2:'',
+                        cmenu3:'',
+                        cprice3:'',
 						cparking:'',
 						copentime:'',
 						cclosetime:'',
@@ -286,7 +302,13 @@
 	            		if(this.cstore_name==""){alert("가게명을 입력주세요"); return;}
 	            		if(this.cstore_address==""){alert("주소를 입력하세요"); return;}
 	            		if(this.cstore_phone==""){alert("전화번호를 입력하세요"); return;}
-	            		if(this.ccategory==""){alert("종류를 선택하세요"); return;}
+                        if(this.ccategory==""){alert("종류를 선택하세요"); return;}
+                        if(this.cmenu1==""){alert("메뉴를 입력하세요"); return;}
+                        if(this.cprice1==""){alert("가격을 입력하세요"); return;}
+                        if(this.cmenu2==""){alert("메뉴를 입력하세요"); return;}
+                        if(this.cprice2==""){alert("가격을 입력하세요"); return;}
+                        if(this.cmenu3==""){alert("메뉴를 입력하세요"); return;}
+                        if(this.cprice3==""){alert("가격을 입력하세요"); return;}
 	            		if(this.cparking==""){alert("주차를 선택하세요"); return;}
 	            		if(this.copentime==""){alert("오픈시간을 입력하세요"); return;}
 	            		if(this.cclosetime==""){alert("마감시간을 입력하세요"); return;}
@@ -299,7 +321,13 @@
 		            			store_name:this.cstore_name,
 			           			store_address:this.cstore_address,
 			           			store_phone:this.cstore_phone,
-			           			category:this.ccategory,
+                                category:this.ccategory,
+                                menu1:this.cmenu1,
+                                price1:this.cprice1,
+                                menu2:this.cmenu2,
+                                price2:this.cprice2,
+                                menu3:this.cmenu3,
+                                price3:this.cprice3,    
 			           			parking:this.cparking,
 			           			opentime:this.copentime,
 			           			closetime:this.cclosetime,

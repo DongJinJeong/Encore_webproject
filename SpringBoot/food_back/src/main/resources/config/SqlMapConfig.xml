@@ -10,6 +10,7 @@
 	<mappers>
 		<mapper resource="sql/user-mapping.xml"/>
 		<mapper resource="sql/store-mapping.xml"/>
+		<mapper resource="sql/review-mapping.xml"/>
 	</mappers>
 </configuration>
 

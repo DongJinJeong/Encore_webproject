@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.encore.food.domain.StoreDTO;
-import com.encore.food.repo.StoreDao;
+import com.encore.food.repo.StoreDAO;
 
 @Service
 public class StoreServiceImpl implements StoreService {
 	
 	@Autowired
-	private StoreDao storeDao;
+	private StoreDAO storeDao;
 
 	@Override
 	public List<StoreDTO> findAllMyStores(String id) throws Exception {

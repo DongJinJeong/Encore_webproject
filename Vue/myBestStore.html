@@ -146,8 +146,7 @@
                         <div class="info">
                             <div>
                                 <a class="name" v-html="s.store_name"></a><span class="score"> {{s.score_avg}}</span>
-                                <button class="dibs_btn" @click="deleteStore(s.store_id)">삭제</button>
-                                <button class="dibs_btn" onclick="location.href='store_update.html'"><a :href="projectHref(s.store_id)">수정</a></button>
+                                <button class="dibs_btn" @click="deletebestStore(s.store_id)">삭제</button>
                                 <p class="location">음식 종류 : {{s.category}}</p>
                                 <p class="location">주소 : {{s.store_address}}</p>
                                 <p class="location">전화번호 : {{s.store_phone}}</p>
@@ -183,10 +182,10 @@
         
         <script>
             function getToken() {
-               return localStorage.getItem('Token');
+                return localStorage.getItem('Token');
             }
             const token = getToken();
-
+            
             new Vue({
                 el: "#app",           
                 data(){
@@ -198,7 +197,7 @@
                 },
                 mounted(){
                     axios
-                        .get("http://127.0.0.1:7771/api/findAllMyStores/"+token)
+                        .get("http://127.0.0.1:7771/api/myBestStores/"+token)
                         .then(response=>(this.info = response.data))
                         .catch(error=>{
                             console.log(error);
@@ -207,26 +206,18 @@
                         .finally(()=>this.loading = false)
                 },
                 methods: {
-                    updateStore(list_num, event) {
+                    deletebestStore(store_id) {
                         axios
-                            .get('http://localhost:7771/api/updateStore', {
-                                store_id: store_id,
-                                listDate: event.target.value
-                            })
-                            .then(response => (location.reload(true)))
-                    },
-                    deleteStore(store_id) {
-                        axios
-                            .delete('http://localhost:7771/api/deleteStore/'+store_id)
+                            .delete('http://localhost:7771/api/deletebestStore/'+store_id)
                             .then(response => {
-                                alert('삭제되었습니다.');
-                                location.reload(true)
+                                    alert('삭제되었습니다.');
+                                    location.reload(true)
                             })
                     },
                     logout(){
                         localStorage.removeItem('Token', token);
                         location.href="./main.html";
-                    },
+                    }, // logout
                     projectHref(index){
                         return "store_detail.html?store_id=" + index.toString();
                     }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 완벽한 행태의 CRUD가 다 들어있는 sqlMapper 이게 돌아간다면 MyBatis Framework에단에 문제가 없는 
+	것으로 본다 일종의 단위테스트...MyBatisAppTest.java 가 바로 MyBatis Mapper 단위테스트 -->
+
+<mapper namespace="ReviewMapper">
+	
+	<select id="findReviewsByStoreId" parameterType="int" resultType="ReviewDTO">
+		SELECT review_id, content, score, id, store_id 
+		FROM review
+		WHERE store_id=#{store_id} ORDER BY score DESC
+	</select>
+
+	<insert id="addReview" parameterType="ReviewDTO">
+		INSERT INTO 
+		review (content, score, id, store_id)
+		VALUES (#{content}, #{score}, #{id}, #{store_id})
+	</insert>
+
+	<update id="updateReview" parameterType="ReviewDTO">
+		UPDATE review 
+		SET content=#{content}, score=#{score} , id= #{id}, store_id=#{store_id}
+		WHERE review_id=#{review_id}
+	</update>
+
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review WHERE review_id=#{value}
+	</delete>
+	
+	<update id="findScore_avgByStoreId" parameterType="int">
+		UPDATE store
+		SET score_avg = (SELECT AVG(score) FROM review WHERE store_id=#{VALUE});
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
