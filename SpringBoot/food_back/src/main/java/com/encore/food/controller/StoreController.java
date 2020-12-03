@@ -67,6 +67,13 @@ public class StoreController {
 		return new ResponseEntity(stores, HttpStatus.OK);
 	}
 	
+	@GetMapping("getStoreById/{store_id}")
+	public ResponseEntity getStoreById(@PathVariable int store_id) throws Exception{
+		List<StoreDTO> stores = storeService.getStoreById(store_id);
+		if(stores.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+		return new ResponseEntity(stores, HttpStatus.OK);
+	}
+	
 	@PutMapping("updateStore")
 	public ResponseEntity updateStore(@RequestBody StoreDTO dto) throws Exception {
 		storeService.updateStore(dto);

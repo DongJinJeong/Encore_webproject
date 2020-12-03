@@ -150,14 +150,9 @@
             var app = new Vue({
                 el:'#app',
                 data(){
-                return{
-                    user: ''
-                }
-                },
-                mounted() {
-                    axios
-                        .get('http://localhost:7771/food/user/'+token)
-                        .then(response => (this.user = response.data))
+                    return{
+                    
+                    }
                 },
                 methods:{
                     logout(){

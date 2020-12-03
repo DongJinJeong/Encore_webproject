@@ -55,6 +55,11 @@ public class StoreDAOImpl implements StoreDAO {
 	public List<StoreDTO> detailStoreById(int store_id) throws Exception {
 		return sqlSession.selectList(NS+"detailStoreById", store_id);
 	}
+	
+	@Override
+	public List<StoreDTO> getStoreById(int store_id) throws Exception {
+		return sqlSession.selectList(NS+"getStoreById", store_id);
+	}
 
 	@Override
 	public void insertStore(StoreDTO store) throws Exception {

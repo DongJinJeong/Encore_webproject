@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>가게등록</title>
+        <title>나의 가게</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <style>
@@ -135,7 +135,7 @@
             <div class="mid">
                 <div class="header_bottom">
                     <h1>솔직한 리뷰, 믿을 수 없는 평점!</h1>
-                    <h2>망고 플레이트</h2>
+                    <h2>엔코아 플레이트</h2>
                 </div>
                 <div class="list">
                     <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">내가 등록한 가게</h2>
@@ -147,7 +147,7 @@
                             <div>
                                 <a class="name" v-html="s.store_name"></a><span class="score"> {{s.score_avg}}</span>
                                 <button class="dibs_btn" @click="deleteStore(s.store_id)">삭제</button>
-                                <button class="dibs_btn" onclick="location.href='store_update.html'"><a :href="projectHref(s.store_id)">수정</a></button>
+                                <button class="dibs_btn" @click="updateStore(s.store_id)">수정</button>
                                 <p class="location">음식 종류 : {{s.category}}</p>
                                 <p class="location">주소 : {{s.store_address}}</p>
                                 <p class="location">전화번호 : {{s.store_phone}}</p>
@@ -207,13 +207,8 @@
                         .finally(()=>this.loading = false)
                 },
                 methods: {
-                    updateStore(list_num, event) {
-                        axios
-                            .get('http://localhost:7771/api/updateStore', {
-                                store_id: store_id,
-                                listDate: event.target.value
-                            })
-                            .then(response => (location.reload(true)))
+                    updateStore(store_id) {
+                        location.href = "./myStoreUpdate.html?store_id=" + store_id; 
                     },
                     deleteStore(store_id) {
                         axios

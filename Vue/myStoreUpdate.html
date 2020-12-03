@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>가게등록</title>
+        <title>가게 수정</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <style>
             * {margin: 0; padding: 0; box-sizing: border-box;}
             #wrap, #wrap>div {width: 100%;}
@@ -162,27 +163,27 @@
             <div class="mid">
                 <h1 style="text-align: center;">가게등록</h1>
                 <div class="registerstore">
-                    <form action="#" method="POST" @submit.prevent="registerStore">
+                    <form action="#" method="PUT" @submit.prevent="updateStore">
                         <div class="box">
                             <div class="inp_text" enctype="multipart/form-data">
                                 <label class="screen_out">가게 이미지</label>	
-                                <input type="file" name="store_img" id="store_img" size="30" v-model="cstore_img" />
+                                <input type="file" id="store_img" size="30" v-model="info.store_img" />
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">가게명</label>
-                                <input type="text" name="store_name" id="store_name" size="30" v-model="cstore_name" />
+                                <input type="text" id="store_name" size="30" v-model="info.store_name" />
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">주소</label>
-                                <input type="text" name="store_address" id="store_address" size="30" v-model="cstore_address" />
+                                <input type="text" id="store_address" size="30" v-model="info.store_address" />
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">전화번호</label>
-                                <input type="text" name="store_phone" id="store_phone" size="30" v-model="cstore_phone" />
+                                <input type="text" id="store_phone" size="30" v-model="info.store_phone" />
                             </div>
                             <div class="inp_text">
                                 <label>음식 종류</label>
-                                <select name="category" id="category" v-model="ccategory">
+                                <select id="category" v-model="info.category">
                                     <option value="한식">한식</option>
                                     <option value="분식">분식</option>
                                     <option value="중식">중식</option>
@@ -196,20 +197,20 @@
                                 </select>
                             </div>
                             <div class="inp_text">
-                                메뉴 : <input type="text" name="menu1" id="menu1" size="30" v-model="cmenu1" />
-                                가격 : <input type="text" name="price1" id="price1" size="30" v-model="cprice1" />
+                                메뉴 : <input type="text" id="menu1" size="30" v-model="info.menu1" />
+                                가격 : <input type="text" id="price1" size="30" v-model="info.price1" />
                             </div>
                             <div class="inp_text">
-                                메뉴 : <input type="text" name="menu2" id="menu2" size="30" v-model="cmenu2" />
-                                가격 : <input type="text" name="price2" id="price2" size="30" v-model="cprice2" />
+                                메뉴 : <input type="text" id="menu2" size="30" v-model="info.menu2" />
+                                가격 : <input type="text" id="price2" size="30" v-model="info.price2" />
                             </div>
                             <div class="inp_text">
-                                메뉴 : <input type="text" name="menu3" id="menu3" size="30" v-model="cmenu3" />
-                                가격 : <input type="text" name="price3" id="price3" size="30" v-model="cprice3" />
+                                메뉴 : <input type="text" id="menu3" size="30" v-model="info.menu3" />
+                                가격 : <input type="text" id="price3" size="30" v-model="info.price3" />
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">주차 가능</label>
-                                <select name="parking" id="parking" v-model="cparking">
+                                <select id="parking" v-model="info.parking">
                                     <option value="주차 공간 충분">주차 공간 충분</option>
                                     <option value="주차 공간 협소">주차 공간 협소</option>
                                     <option value="무료 주차 가능">무료 주차 가능</option>
@@ -218,15 +219,15 @@
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">오픈시간</label>
-                                <input type="time" name="opentime" id="opentime" size="30" v-model="copentime" />
+                                <input type="time" id="opentime" size="30" v-model="info.opentime" />
                             </div>
                             <div class="inp_text">
                                 <label class="screen_out">마감시간</label>
-                                <input type="time" name="closetime" id="closetime" size="30" v-model="cclosetime" />
+                                <input type="time" id="closetime" size="30" v-model="info.closetime" />
                             </div>
                             <div class="inp_text">
                                 <label>휴일</label>
-                                <select name="dayoff" id="dayoff" v-model="cdayoff">
+                                <select id="dayoff" v-model="info.dayoff">
                                     <option value="월요일">월요일</option>
                                     <option value="화요일">화요일</option>
                                     <option value="수요일">수요일</option>
@@ -237,7 +238,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn_register">가게등록</button>
+                        <button type="submit" class="btn_register">가게 수정</button>
                     </form>
                 </div>
             </div>
@@ -267,73 +268,66 @@
 	        }
             const token = getToken();
             
+            $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+			}
+
 			var app = new Vue({
 				el:'#app',
 				data(){
 					return{
 						loading:true,
 						errored:false,
-						user: [],
-						cstore_img:'',
-						cstore_name:'',
-						cstore_address:'',
-						cstore_phone:'',
-                        ccategory:'',
-                        cmenu1:'',
-                        cprice1:'',
-                        cmenu2:'',
-                        cprice2:'',
-                        cmenu3:'',
-                        cprice3:'',
-						cparking:'',
-						copentime:'',
-						cclosetime:'',
-						cdayoff:''
+						info: []
 					} // return
 				}, // data
-				
+				mounted() {
+	                axios
+                        .get("http://127.0.0.1:7771/api/getStoreById/"+$.urlParam('store_id'))
+                            .then(response=>(this.info = response.data))
+                            .catch(error=>{
+                                console.log(error);
+                                this.errored = true
+                            })
+                            .finally(()=>this.loading = false)
+	            },
 	            methods:{
-	            	registerStore(){
-	            		if(this.cstore_img==""){alert("이미지를 넣어주세요"); return;}
-	            		if(this.cstore_name==""){alert("가게명을 입력주세요"); return;}
-	            		if(this.cstore_address==""){alert("주소를 입력하세요"); return;}
-	            		if(this.cstore_phone==""){alert("전화번호를 입력하세요"); return;}
-                        if(this.ccategory==""){alert("종류를 선택하세요"); return;}
-                        if(this.cmenu1==""){alert("메뉴를 입력하세요"); return;}
-                        if(this.cprice1==""){alert("가격을 입력하세요"); return;}
-                        if(this.cmenu2==""){alert("메뉴를 입력하세요"); return;}
-                        if(this.cprice2==""){alert("가격을 입력하세요"); return;}
-                        if(this.cmenu3==""){alert("메뉴를 입력하세요"); return;}
-                        if(this.cprice3==""){alert("가격을 입력하세요"); return;}
-	            		if(this.cparking==""){alert("주차를 선택하세요"); return;}
-	            		if(this.copentime==""){alert("오픈시간을 입력하세요"); return;}
-	            		if(this.cclosetime==""){alert("마감시간을 입력하세요"); return;}
-	            		if(this.cdayoff==""){alert("휴일을 선택하세요"); return;}
-	            		
+	            	updateStore(){
+                        const store = {
+                            id: token,
+                            store_img:this.info.store_img,
+                            store_name:this.info.store_name,
+                            store_address:this.info.store_address,
+                            store_phone:this.info.store_phone,
+                            category:this.info.category,
+                            menu1:this.info.menu1,
+                            price1:this.info.price1,
+                            menu2:this.info.menu2,
+                            price2:this.info.price2,
+                            menu3:this.info.menu3,
+                            price3:this.info.price3,    
+                            parking:this.info.parking,
+                            opentime:this.info.opentime,
+                            closetime:this.info.closetime,
+                            dayoff:this.info.dayoff
+                        };
+
 	            		axios
-		            		.post('http://127.0.0.1:7771/api/registerStore',{
-								id: token,
-		            			store_img:this.cstore_img,
-		            			store_name:this.cstore_name,
-			           			store_address:this.cstore_address,
-			           			store_phone:this.cstore_phone,
-                                category:this.ccategory,
-                                menu1:this.cmenu1,
-                                price1:this.cprice1,
-                                menu2:this.cmenu2,
-                                price2:this.cprice2,
-                                menu3:this.cmenu3,
-                                price3:this.cprice3,    
-			           			parking:this.cparking,
-			           			opentime:this.copentime,
-			           			closetime:this.cclosetime,
-			           			dayoff:this.cdayoff
-		           		 	})
-	            			.then(function(response){
-	            				alert('가게가 등록되었습니다.');
+                            .put('http://127.0.0.1:7771/api/updateStore', store)
+                            .then((response) => {
+                            console.log(response);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                this.errored = true;
+                            })
+                            .finally(() => {
+                                this.loading = false;
+                                alert('가게가 수정되었습니다.');
 	            				location.href="./myStore.html";
-	            			})
-	            	}, // registerStore
+                            })
+	            	}, // updateStore
 	            	logout(){
 	            		localStorage.removeItem('Token', token);
 	            		location.href="./login.html";

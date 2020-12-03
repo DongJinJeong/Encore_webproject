@@ -54,6 +54,11 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreDTO> detailStoreById(int store_id) throws Exception {
 		return storeDao.detailStoreById(store_id);
 	}
+	
+	@Override
+	public List<StoreDTO> getStoreById(int store_id) throws Exception {
+		return storeDao.getStoreById(store_id);
+	}
 
 	@Override
 	public void insertStore(StoreDTO store) throws Exception {

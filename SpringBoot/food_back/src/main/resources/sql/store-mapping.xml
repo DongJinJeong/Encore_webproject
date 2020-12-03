@@ -11,7 +11,7 @@
 	
 	<update id="updateStore" parameterType="store">
 		UPDATE store
-		SET store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}
+		SET store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}, menu1=#{menu1}, price1=#{price1}, menu2=#{menu2}, price2=#{price2}, menu3=#{menu3}, price3=#{price3}
 		WHERE store_id=#{store_id}
 	</update>
 	
@@ -48,6 +48,13 @@
 	</select>
 	
 	<select id="detailStoreById" parameterType="int" resultType="store">
+		SELECT
+		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg, menu1, price1, menu2, price2, menu3, price3
+		FROM store
+		WHERE store_id=#{value}
+	</select>
+	
+	<select id="getStoreById" parameterType="int" resultType="store">
 		SELECT
 		store_id, store_img, store_address, store_phone, category, parking, opentime, closetime, dayoff, store_name, score_avg, menu1, price1, menu2, price2, menu3, price3
 		FROM store

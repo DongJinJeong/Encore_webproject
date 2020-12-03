@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>가게등록</title>
+        <title>모든 가게</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <style>
@@ -220,6 +220,7 @@
                 return localStorage.getItem('Token');
             }
             const token = getToken();
+            
             new Vue({
                 el: "#app",           
                 data(){

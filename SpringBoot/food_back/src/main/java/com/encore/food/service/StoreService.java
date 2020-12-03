@@ -9,6 +9,7 @@ public interface StoreService {
 	List<StoreDTO> findAllStores() throws Exception;
 	List<StoreDTO> findStoreByName(String store_name) throws Exception;	
 	List<StoreDTO> detailStoreById(int store_id) throws Exception;
+	List<StoreDTO> getStoreById(int store_id) throws Exception;
 	List<StoreDTO> findStoreBycategory(String category) throws Exception;
 	void registerStore(StoreDTO store) throws Exception;
 	void updateStore(StoreDTO store) throws Exception;
