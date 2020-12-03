@@ -11,7 +11,7 @@
 	
 	<update id="updateStore" parameterType="store">
 		UPDATE store
-		SET store_img=#{store_img}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, store_name=#{store_name}, menu1=#{menu1}, price1=#{price1}, menu2=#{menu2}, price2=#{price2}, menu3=#{menu3}, price3=#{price3}
+		SET store_img=#{store_img}, store_name=#{store_name}, store_address=#{store_address}, store_phone=#{store_phone}, category=#{category}, menu1=#{menu1}, price1=#{price1}, menu2=#{menu2}, price2=#{price2}, menu3=#{menu3}, price3=#{price3}, parking=#{parking}, opentime=#{opentime}, closetime=#{closetime}, dayoff=#{dayoff}, id=#{id}
 		WHERE store_id=#{store_id}
 	</update>
 	
