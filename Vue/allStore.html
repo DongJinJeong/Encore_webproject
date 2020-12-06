@@ -234,7 +234,7 @@
                 },
                 mounted(){
                     axios
-                        .get("http://127.0.0.1:7771/api/findAllStores")
+                        .get("http://127.0.0.1:7771/store/findAllStores")
                         .then(response=>(this.info = response.data))
                         .catch(error=>{
                             console.log(error);
@@ -245,7 +245,7 @@
                 methods: {
                     searchname(){
                         axios
-                            .get("http://127.0.0.1:7771/api/findStoreByName/"+this.cstore_name)
+                            .get("http://127.0.0.1:7771/store/findStoreByName/"+this.cstore_name)
                             .then(response=>(this.info = response.data))
                             .catch(error=>{
                                 console.log(error);
@@ -255,7 +255,7 @@
                     }, //searchname
                     insertstore(store_id){
                         axios
-                            .post("http://127.0.0.1:7771/api/insertStore",{
+                            .post("http://127.0.0.1:7771/store/insertStore",{
                                 id: token,
                                 store_id: store_id
                             })

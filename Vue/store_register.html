@@ -311,7 +311,7 @@
 	            		if(this.cdayoff==""){alert("휴일을 선택하세요"); return;}
 	            		
 	            		axios
-		            		.post('http://127.0.0.1:7771/api/registerStore',{
+		            		.post('http://127.0.0.1:7771/store/registerStore',{
 								id: token,
 		            			store_img:this.cstore_img,
 		            			store_name:this.cstore_name,

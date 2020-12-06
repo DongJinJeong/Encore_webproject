@@ -272,7 +272,7 @@
 	    		},
 	    		mounted(){
 	                axios
-		                .get("http://127.0.0.1:7771/api/detailStoreById/"+$.urlParam('store_id'))
+		                .get("http://127.0.0.1:7771/store/detailStoreById/"+$.urlParam('store_id'))
 		                .then(response=>(this.info = response.data))
 		                .catch(error=>{
 		                    console.log(error);
@@ -281,7 +281,7 @@
 		                .finally(()=>this.loading = false)
 		                
 					axios
-						.get("http://127.0.0.1:7771/api/findReviewsByStoreId/"+$.urlParam('store_id'))
+						.get("http://127.0.0.1:7771/store/findReviewsByStoreId/"+$.urlParam('store_id'))
 						.then(response=>(this.rlist = response.data))
 						.catch(error=>{
 						    console.log(error);
@@ -290,7 +290,7 @@
 						.finally(()=>this.loading = false)
 						
 					axios
-						.get("http://127.0.0.1:7771/api/scoreByStoreId/"+$.urlParam('store_id'))
+						.get("http://127.0.0.1:7771/store/scoreByStoreId/"+$.urlParam('store_id'))
 						.then(response=>(this.aa = response.data))
 						.catch(error=>{
 						    console.log(error);
@@ -305,7 +305,7 @@
 	            	},
 	            	deleteReview(review_id) {
 	                    axios
-	                        .delete('http://localhost:7771/api/deleteReview/'+review_id)
+	                        .delete('http://localhost:7771/review/deleteReview/'+review_id)
 	                        .then(response => {
 	                        		alert('삭제되었습니다.');
 	                        		location.reload(true)

@@ -284,7 +284,7 @@
 				}, // data
 				mounted() {
 	                axios
-                        .get("http://127.0.0.1:7771/api/getStoreById/"+$.urlParam('store_id'))
+                        .get("http://127.0.0.1:7771/store/getStoreById/"+$.urlParam('store_id'))
                             .then(response=>(this.info = response.data))
                             .catch(error=>{
                                 console.log(error);
@@ -314,7 +314,7 @@
                         };
 
 	            		axios
-                            .put('http://127.0.0.1:7771/api/updateStore', store)
+                            .put('http://127.0.0.1:7771/store/updateStore', store)
                             .then((response) => {
                                 console.log(response);
                             })

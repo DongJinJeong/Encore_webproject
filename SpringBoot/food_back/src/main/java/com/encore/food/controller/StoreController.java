@@ -19,7 +19,7 @@ import com.encore.food.domain.StoreDTO;
 import com.encore.food.service.StoreService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("store")
 @CrossOrigin(origins= {"*"}, maxAge=6000)
 public class StoreController {
 	

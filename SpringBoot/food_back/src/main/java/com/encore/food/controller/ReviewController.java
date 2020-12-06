@@ -19,7 +19,7 @@ import com.encore.food.domain.ReviewDTO;
 import com.encore.food.service.ReviewService;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("review")
 @CrossOrigin(origins= {"*"}, maxAge=6000)
 public class ReviewController {
 

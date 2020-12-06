@@ -209,7 +209,7 @@
                         if(this.cphone==""){alert("전화번호를 입력하세요"); return;}
                         
                         axios
-                           .post('http://127.0.0.1:7771/food/registerUser',{
+                           .post('http://127.0.0.1:7771/user/registerUser',{
                                  id:this.cid,
                                  password:this.cpassword,
                                  name:this.cname,

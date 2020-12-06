@@ -198,7 +198,7 @@
                 },
                 mounted(){
                     axios
-                        .get("http://127.0.0.1:7771/api/findAllMyStores/"+token)
+                        .get("http://127.0.0.1:7771/store/findAllMyStores/"+token)
                         .then(response=>(this.info = response.data))
                         .catch(error=>{
                             console.log(error);
@@ -212,7 +212,7 @@
                     },
                     deleteStore(store_id) {
                         axios
-                            .delete('http://localhost:7771/api/deleteStore/'+store_id)
+                            .delete('http://localhost:7771/store/deleteStore/'+store_id)
                             .then(response => {
                                 alert('삭제되었습니다.');
                                 location.reload(true)

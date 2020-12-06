@@ -88,7 +88,7 @@
             #review {padding: 30px 200px;}
 
             /* ********** footer :: Start ********** */
-            #footer {height: 200px; text-align: center; bottom: 0; width: 100%; position: fixed;}
+            #footer {height: 200px; text-align: center; bottom: 0; width: 100%;}
             #footer #f-top {height: 320px;}
             #footer #f-bottom {height: 200px;}
             #f-bottom {background-color: #363636; color: #fff;}
@@ -213,7 +213,7 @@
 			    },
 			    mounted(){
 			             axios
-			                .get("http://localhost:7771/api/detailStoreById/"+sti)
+			                .get("http://localhost:7771/store/detailStoreById/"+sti)
 			                .then(response=>(this.info = response.data))
 			                .catch(error=>{
 			                    console.log(error);
@@ -231,7 +231,7 @@
                         if(this.cscore==''){alert("평점을 골라주세요");return;}
 
                         axios
-                            .post("http://localhost:7771/api/addReview",{
+                            .post("http://localhost:7771/review/addReview",{
                                 content:this.ccontent,
                                 id:this.cid,
                                 score:this.cscore,
@@ -244,7 +244,7 @@
                     },
                     score_avg(){
                         axios
-                            .post("http://localhost:7771/api/findScore_avgByStoreId/"+sti,{
+                            .post("http://localhost:7771/reivew/findScore_avgByStoreId/"+sti,{
                                 store_id: store_id
                             })
                     }

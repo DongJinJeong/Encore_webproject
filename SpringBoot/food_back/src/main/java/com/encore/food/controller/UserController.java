@@ -16,7 +16,7 @@ import com.encore.food.domain.UserDTO;
 import com.encore.food.service.UserService;
 
 @RestController
-@RequestMapping("food")
+@RequestMapping("user")
 @CrossOrigin(origins={"*"}, maxAge=6000)
 public class UserController {
 	
