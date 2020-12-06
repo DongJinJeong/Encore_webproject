@@ -5929,3 +5929,18 @@ java.io.IOException: Unable to resolve plug-in "org.springframework.ide.eclipse.
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-12-06 16:42:32.237
 !MESSAGE executing callback sts4.classpath.tbrCLowb SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-12-06 17:31:35.290
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.tbrCLowb
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-12-06 17:31:35.295
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.tbrCLowb
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-12-06 17:31:35.295
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-12-06 17:31:35.295
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.tbrCLowb => OK
+
+!ENTRY org.eclipse.ui 2 2 2020-12-06 17:31:36.911
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
