@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
+@Alias("review")
 public class ReviewDTO implements Serializable {
 	private int review_id;
 	private String content;

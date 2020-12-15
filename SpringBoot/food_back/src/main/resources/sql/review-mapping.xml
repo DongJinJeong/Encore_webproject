@@ -6,19 +6,19 @@
 
 <mapper namespace="ReviewMapper">
 	
-	<select id="findReviewsByStoreId" parameterType="int" resultType="ReviewDTO">
+	<select id="findReviewsByStoreId" parameterType="int" resultType="review">
 		SELECT review_id, content, score, id, store_id 
 		FROM review
 		WHERE store_id=#{store_id} ORDER BY score DESC
 	</select>
 
-	<insert id="addReview" parameterType="ReviewDTO">
+	<insert id="addReview" parameterType="review">
 		INSERT INTO 
 		review (content, score, id, store_id)
 		VALUES (#{content}, #{score}, #{id}, #{store_id})
 	</insert>
 
-	<update id="updateReview" parameterType="ReviewDTO">
+	<update id="updateReview" parameterType="review">
 		UPDATE review 
 		SET content=#{content}, score=#{score} , id= #{id}, store_id=#{store_id}
 		WHERE review_id=#{review_id}
@@ -30,7 +30,8 @@
 	
 	<update id="findScore_avgByStoreId" parameterType="int">
 		UPDATE store
-		SET score_avg = (SELECT AVG(score) FROM review WHERE store_id=#{VALUE});
+		SET score_avg = (SELECT AVG(score) FROM review WHERE store_id=#{value})
+		WHERE store_id=#{value};
     </update>
 
 </mapper>

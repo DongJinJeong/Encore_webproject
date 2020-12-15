@@ -281,7 +281,7 @@
 		                .finally(()=>this.loading = false)
 		                
 					axios
-						.get("http://127.0.0.1:7771/store/findReviewsByStoreId/"+$.urlParam('store_id'))
+						.get("http://127.0.0.1:7771/review/findReviewsByStoreId/"+$.urlParam('store_id'))
 						.then(response=>(this.rlist = response.data))
 						.catch(error=>{
 						    console.log(error);
@@ -290,7 +290,7 @@
 						.finally(()=>this.loading = false)
 						
 					axios
-						.get("http://127.0.0.1:7771/store/scoreByStoreId/"+$.urlParam('store_id'))
+						.get("http://127.0.0.1:7771/review/findScore_avgByStoreId/"+$.urlParam('store_id'))
 						.then(response=>(this.aa = response.data))
 						.catch(error=>{
 						    console.log(error);

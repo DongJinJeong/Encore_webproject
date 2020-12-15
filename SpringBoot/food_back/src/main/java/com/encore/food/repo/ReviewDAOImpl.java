@@ -19,6 +19,11 @@ public class ReviewDAOImpl implements ReviewDAO{
 	private SqlSession sqlSession;
 
 	@Override
+	public List<ReviewDTO> findReviewsByStoreId(int store_id) throws Exception {
+		return sqlSession.selectList(ns+"findReviewsByStoreId", store_id);
+	}
+
+	@Override
 	public void addReview(ReviewDTO review) throws Exception {
 		sqlSession.insert(ns+"addReview", review);	
 	}

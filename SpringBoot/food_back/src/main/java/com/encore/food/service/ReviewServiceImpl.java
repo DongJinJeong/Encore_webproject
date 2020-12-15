@@ -15,6 +15,11 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewDAO reviewDao;
 
 	@Override
+	public List<ReviewDTO> findReviewsByStoreId(int store_id) throws Exception {
+		return reviewDao.findReviewsByStoreId(store_id);
+	}
+
+	@Override
 	public void addReview(ReviewDTO review) throws Exception {
 		reviewDao.addReview(review);
 	}

@@ -25,6 +25,13 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
+
+	@GetMapping("/findReviewsByStoreId/{store_id}")
+	public ResponseEntity findReviewsByStoreId(@PathVariable int store_id) throws Exception{
+		List<ReviewDTO> reviews = service.findReviewsByStoreId(store_id);
+		if(reviews.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+		else return new ResponseEntity(reviews, HttpStatus.OK);
+	}
 	
 	@PostMapping("/addReview")
 	public ResponseEntity addReview(@RequestBody ReviewDTO review) throws Exception{
