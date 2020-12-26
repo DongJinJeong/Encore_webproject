@@ -147,7 +147,8 @@
                   <form action="#" method="POST" name="frmForm" id="_frmForm" @submit.prevent="registerCustomer">
                      <div class="box_login">
                         <div class="inp_text">
-                           <input type="text" name="id" id="id" size="30" placeholder="ID" v-model="cid" />
+                           <input type="text" @keyup="idCheck" name="id" id="id" size="30" placeholder="ID" v-model="cid" />
+                           <span v-if="custIdCheck" style="margin-left:2%; margin-bottom: 10%; color: red;">이미 사용중인 아이디입니다<br></span>
                         </div>
                         <div class="inp_text">
                            <input type="text" name="password" id="password" size="30" placeholder="Password" v-model="cpassword" />
@@ -197,31 +198,45 @@
                      cpassword:'',
                      cname:'',
                      cemail:'',
-                     cphone:''
+                     cphone:'',
+                     custIdCheck: false
                   } // return
                }, // data
-                  methods:{
-                     registerCustomer(){
+                methods:{
+                    registerCustomer(){
                         if(this.cid==""){alert("아이디를 입력하세요"); return;}
                         if(this.cpassword==""){alert("비밀번호을 입력하세요"); return;}
                         if(this.cname==""){alert("이름을 입력하세요"); return;}
                         if(this.cemail==""){alert("이메일을 입력하세요"); return;}
                         if(this.cphone==""){alert("전화번호를 입력하세요"); return;}
-                        
+                        if (this.custIdCheck) {
+                            return alert("중복된 아이디를 입력하셨습니다.")
+                        }
+                    
                         axios
-                           .post('http://127.0.0.1:7771/user/registerUser',{
-                                 id:this.cid,
-                                 password:this.cpassword,
-                                 name:this.cname,
-                                 email:this.cemail,
-                                 phone:this.cphone
-                              })
-                           .then(function(response){
-                              alert('회원가입이 완료되었습니다.');
-                              location.href="./login.html";
-                           })
-                     } // registerCustomer
-                  } // methods
+                            .post('http://127.0.0.1:7771/user/registerUser',{
+                                    id:this.cid,
+                                    password:this.cpassword,
+                                    name:this.cname,
+                                    email:this.cemail,
+                                    phone:this.cphone
+                                })
+                            .then(function(response){
+                                alert('회원가입이 완료되었습니다.');
+                                location.href="./login.html";
+                            })
+                    }, // registerCustomer
+                    idCheck() {
+                        axios
+                            .get("http://127.0.0.1:7771/user/idCheck/" + this.cid)
+                            .then(response => (this.custIdCheck = response.data))
+                            .catch(error => {
+                                console.log(error);
+                                this.errored = true
+                            })
+                            .finally(() => this.empEmpty = false)
+                    } // idCheck
+                } // methods
             }); // Vue
          </script>
     </body>

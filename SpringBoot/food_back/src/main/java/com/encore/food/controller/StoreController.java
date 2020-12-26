@@ -25,7 +25,7 @@ public class StoreController {
 	
 	@Autowired
 	private StoreService storeService;
-	
+
 	@PostMapping("registerStore")
 	public ResponseEntity registerStore(@RequestBody StoreDTO dto) throws Exception{
 		storeService.registerStore(dto);
