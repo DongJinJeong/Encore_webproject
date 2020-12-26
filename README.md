@@ -14,7 +14,7 @@
 <img src="https://user-images.githubusercontent.com/55942011/100713225-4d321a80-33f7-11eb-8cdc-09d603f404de.png">
 
 ## Database Modeling
-<img src="https://user-images.githubusercontent.com/55942011/101275607-2bb3a300-37ea-11eb-9dd2-704e8dc26bf8.png">
+<img src="https://user-images.githubusercontent.com/55942011/103153608-158b7800-47d5-11eb-8f1f-0fd11ab34794.png">
 
 ## 화면
  - 모든 맛집
