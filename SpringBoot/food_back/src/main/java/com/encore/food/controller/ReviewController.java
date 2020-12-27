@@ -39,12 +39,12 @@ public class ReviewController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateReview")
-	public ResponseEntity updateReview(@RequestBody ReviewDTO review) throws Exception{
-		boolean result = service.updateReview(review);
-		if(!result) return new ResponseEntity(HttpStatus.NO_CONTENT);
-		return new ResponseEntity(HttpStatus.OK);
-	}
+//	@PutMapping("/updateReview")
+//	public ResponseEntity updateReview(@RequestBody ReviewDTO review) throws Exception{
+//		boolean result = service.updateReview(review);
+//		if(!result) return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity(HttpStatus.OK);
+//	}
 	
 	@DeleteMapping("/deleteReview/{review_id}")
 	public ResponseEntity deleteReview(@PathVariable int review_id) throws Exception{

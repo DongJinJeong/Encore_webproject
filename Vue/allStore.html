@@ -170,7 +170,7 @@
                     <input type="text" class="store_name" v-model='cstore_name' @keyup="searchname" @input="cstore_name=$event.target.value" placeholder="가게명을 입력하세요...">
                 </div>
                 <div class="list">
-                    <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">맛집 목록</h2>
+                    <h2 style="margin-top: 30px; font-size: 20px; text-align: center;">모든 맛집 목록</h2>
                     <div class="restaurant" v-for="s in info" style="width: 700px; height: 300px;">
                         <div style="width: 35%; float: left;">
                             <a :href="projectHref(s.store_id)"><img src="s.store_img"></a><br>

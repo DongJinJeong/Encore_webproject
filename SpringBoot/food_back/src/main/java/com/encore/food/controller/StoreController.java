@@ -53,12 +53,12 @@ public class StoreController {
 		return new ResponseEntity(stores, HttpStatus.OK);
 	}
 	
-	@GetMapping("findStoreBycategory/{category}")
-	public ResponseEntity findStoreBycategory(@PathVariable String category) throws Exception{
-		List<StoreDTO> stores = storeService.findStoreBycategory(category);
-		if(stores.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
-		return new ResponseEntity(stores, HttpStatus.OK);
-	}
+//	@GetMapping("findStoreBycategory/{category}")
+//	public ResponseEntity findStoreBycategory(@PathVariable String category) throws Exception{
+//		List<StoreDTO> stores = storeService.findStoreBycategory(category);
+//		if(stores.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity(stores, HttpStatus.OK);
+//	}
 	
 	@GetMapping("detailStoreById/{store_id}")
 	public ResponseEntity detailStoreById(@PathVariable int store_id) throws Exception{
@@ -67,18 +67,18 @@ public class StoreController {
 		return new ResponseEntity(stores, HttpStatus.OK);
 	}
 	
-	@GetMapping("getStoreById/{store_id}")
-	public ResponseEntity getStoreById(@PathVariable int store_id) throws Exception{
-		List<StoreDTO> stores = storeService.getStoreById(store_id);
-		if(stores.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
-		return new ResponseEntity(stores, HttpStatus.OK);
-	}
+//	@GetMapping("getStoreById/{store_id}")
+//	public ResponseEntity getStoreById(@PathVariable int store_id) throws Exception{
+//		List<StoreDTO> stores = storeService.getStoreById(store_id);
+//		if(stores.isEmpty()) return new ResponseEntity(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity(stores, HttpStatus.OK);
+//	}
 	
-	@PutMapping("updateStore")
-	public ResponseEntity updateStore(@RequestBody StoreDTO dto) throws Exception {
-		storeService.updateStore(dto);
-		return new ResponseEntity(HttpStatus.OK);
-	}
+//	@PutMapping("updateStore")
+//	public ResponseEntity updateStore(@RequestBody StoreDTO dto) throws Exception {
+//		storeService.updateStore(dto);
+//		return new ResponseEntity(HttpStatus.OK);
+//	}
 	
 	@DeleteMapping("deleteStore/{store_id}")
 	public ResponseEntity deleteStore(@PathVariable int store_id) throws Exception {
